@@ -1,97 +1,149 @@
-<p align="center">
-  <a href="https://www.gatsbyjs.org">
-    <img alt="Gatsby" src="https://www.gatsbyjs.org/monogram.svg" width="60" />
-  </a>
-</p>
-<h1 align="center">
-  Gatsby × wordpress × GraphQL
-</h1>
+# Gatsby × GraphQL × WP
+- [WordPress Source Plugin Tutorial](https://www.gatsbyjs.org/docs/wordpress-source-plugin-tutorial/)  
 
-Kick off your project with this default boilerplate. This barebones starter ships with the main Gatsby configuration files you might need. 
+## [gatsby-source-wordpress](https://www.gatsbyjs.org/packages/gatsby-source-wordpress/?=wordpress)  
+WordPress REST APIを使用してWordPressサイトからGatsbyにデータをプルするためのソースプラグイン。
 
-_Have another more specific idea? You may want to check out our vibrant collection of [official and community-created starters](https://www.gatsbyjs.org/docs/gatsby-starters/)._
+### Features
+- 自分でホストされているWordPressサイト、またはWordPress.comでホストされているサイトからデータを取り出す
+- 任意の数の投稿で作業する必要がある（900件の投稿があるサイトでテスト済み）
+- OAuth2を使ってwordpress.comのAPIを認証できるので、メディアに問い合わせることができる
+- WordPressの画像からGatsbyで簡単にレスポンシブル画像を作成できる *[Image processing](https://www.gatsbyjs.org/packages/gatsby-source-wordpress/?=wordpress#image-processing)
 
-## 🚀 Quick start
+## [Environment Variables](https://www.gatsbyjs.org/docs/environment-variables)
+### Environments and Environment Variables
+サイトに環境変数を設定して、さまざまな環境で動作をカスタマイズすることができる。
 
-1.  **Create a Gatsby site.**
+ここでは、さまざまなデプロイメント環境で使用するために特別な場所で定義された変数と、コマンドライン呼び出しなどで使用できる実際のOSレベルの環境変数を区別する必要があることに注意。"Project Env Vars"と "OS Env Vars"を呼ぶ。どちらの場合も、私たちがいる環境に対して、これらの変数の関連する値にアクセスできるようにしたいと考えている。
 
-    Use the Gatsby CLI to create a new site, specifying the default starter.
+By default gatsby supports only 2 environments:
+- If you run gatsby develop, then you will be in the ‘development’ environment.
+- If you run gatsby build + gatsby serve, then you will be in the ‘production’ environment.
 
-    ```sh
-    # create a new Gatsby site using the default starter
-    npx gatsby new my-default-starter
-    ```
+他の環境を定義する場合は、もう少し作業を行う必要がある。下記の「追加の環境」を参照。
 
-1.  **Start developing.**
+### Accessing Environment Variables in JavaScript
+すべてのプロジェクトおよび OS Env Varsは、ビルド時または Node.Js の実行時にのみ直接使用できる。
+クライアントコードの実行時にすぐには利用できない。
+クライアントサイドのJavaScriptに積極的にキャプチャして埋め込む必要がある。これは、Webpackの [DefinePlugin](https://webpack.js.org/plugins/define-plugin/) を使用してビルド中に達成される。
+環境変数がクライアント側に埋め込まれると、グローバル変数 `process.env` からアクセスできる。
+OS Env Vars は、同じ `process.env` グローバル変数から Node.js にアクセスできる。
 
-    Navigate into your new site’s directory and start it up.
+これらの変数はビルド時に埋め込まれているため、devサーバーを再起動するか、変更後にサイトを再構築する必要がある。
 
-    ```sh
-    cd my-default-starter/
-    gatsby develop
-    ```
+### Defining Environment Variables
+#### Client-side JavaScript
+クライアント側のブラウザは、JavaScriptにアクセスしたいプロジェクトの Envバール のために、ルートフォルダ に 環境設定ファイル、`.env.development` および/または `.env.production` を、定義することができる。アクティブな環境に応じて、正しいものが見つけられ、ブラウザのJavaScriptにその値が環境変数として埋め込まれる。
 
-1.  **Open the source code and start editing!**
+`.env.*`ファイル で定義されているこれらのプロジェクト環境変数に加えて、OS Env Varsも定義できる。
+接頭辞 `GATSBY_` が付いたOS Env Varsは、ブラウザのJavaScriptで利用可能になる。
 
-    Your site is now running at `http://localhost:8000`!
-    
-    *Note: You'll also see a second link: `http://localhost:8000/___graphql`. This is a tool you can use to experiment with querying your data. Learn more about using this tool in the [Gatsby tutorial](https://www.gatsbyjs.org/tutorial/part-five/#introducing-graphiql).*
-    
-    Open the `my-default-starter` directory in your code editor of choice and edit `src/pages/index.js`. Save your changes and the browser will update in real time!
-    
-## 🧐 What's inside?
+#### Server-side Node.js
+GatsbyはいくつかのNode.jsスクリプトを実行し、特にgatsby-config.jsとgatsby-node.jsを構築する。
+OS Env Varsは、ノードの実行中にすでに使用可能になっているので、環境変数を通常の方法で追加することができる。
+ホスト/ビルドツール、OS、またはコマンドラインでGatsbyを呼び出すときに環境変数を追加する。
 
-A quick look at the top-level files and directories you'll see in a Gatsby project.
+In Linux terminals this can be done with:
+```
+MY_ENV_VAR=foo gatsby develop
+```
 
-    .
-    ├── node_modules
-    ├── src
-    ├── .gitignore
-    ├── .prettierrc
-    ├── gatsby-browser.js
-    ├── gatsby-config.js
-    ├── gatsby-node.js
-    ├── gatsby-ssr.js
-    ├── LICENSE
-    ├── package-lock.json
-    ├── package.json
-    ├── README.md
-    └── yarn.lock
+`.env.*` ファイルで定義したプロジェクト環境変数は、Node.jsスクリプトではすぐに使用できない。
+これらの変数を使用するには、NPMパッケージの [dotenv](https://www.npmjs.com/package/dotenv) を使用してアクティブな `.env.*` ファイルを調べ、それらの値を添付する。
+これは既にGatsbyの依存関係になっているので、gatsby-config.js または gatsby-node.js でこれを要求することができる。
 
-  1.  **`/node_modules`**: This directory contains all of the modules of code that your project depends on (npm packages) are automatically installed.  
-  
-  2.  **`/src`**: This directory will contain all of the code related to what you will see on the front-end of your site (what you see in the browser) such as your site header or a page template. `src` is a convention for “source code”.
-  
-  3.  **`.gitignore`**: This file tells git which files it should not track / not maintain a version history for.
-  
-  4.  **`.prettierrc`**: This is a configuration file for [Prettier](https://prettier.io/). Prettier is a tool to help keep the formatting of your code consistent.
-  
-  5.  **`gatsby-browser.js`**: This file is where Gatsby expects to find any usage of the [Gatsby browser APIs](https://www.gatsbyjs.org/docs/browser-apis/) (if any). These allow customization/extension of default Gatsby settings affecting the browser.
-  
-  6.  **`gatsby-config.js`**: This is the main configuration file for a Gatsby site. This is where you can specify information about your site (metadata) like the site title and description, which Gatsby plugins you’d like to include, etc. (Check out the [config docs](https://www.gatsbyjs.org/docs/gatsby-config/) for more detail).
-  
-  7.  **`gatsby-node.js`**: This file is where Gatsby expects to find any usage of the [Gatsby Node APIs](https://www.gatsbyjs.org/docs/node-apis/) (if any). These allow customization/extension of default Gatsby settings affecting pieces of the site build process.
-  
-  8.  **`gatsby-ssr.js`**: This file is where Gatsby expects to find any usage of the [Gatsby server-side rendering APIs](https://www.gatsbyjs.org/docs/ssr-apis/) (if any). These allow customization of default Gatsby settings affecting server-side rendering.
-  
-  9.  **`LICENSE`**: Gatsby is licensed under the MIT license.
-  
-  10.  **`package-lock.json`** (See `package.json` below, first). This is an automatically generated file based on the exact versions of your npm dependencies that were installed for your project. **(You won’t change this file directly).**
-  
-  11.  **`package.json`**: A manifest file for Node.js projects, which includes things like metadata (the project’s name, author, etc). This manifest is how npm knows which packages to install for your project.
-  
-  12.  **`README.md`**: A text file containing useful reference information about your project.
-  
-  13.  **`yarn.lock`**: [Yarn](https://yarnpkg.com/) is a package manager alternative to npm. You can use either yarn or npm, though all of the Gatsby docs reference npm.  This file serves essentially the same purpose as `package-lock.json`, just for a different package management system.
+```
+# gatsby-config.js
 
-## 🎓 Learning Gatsby
+require("dotenv").config({
+  path: `.env.${process.env.NODE_ENV}`,
+})
+```
+これで変数はいつものようにprocess.envで利用可能になった。
 
-Looking for more guidance? Full documentation for Gatsby lives [on the website](https://www.gatsbyjs.org/). Here are some places to start:
+### Example
+```
+# Example .env.development file
 
--   **For most developers, we recommend starting with our [in-depth tutorial for creating a site with Gatsby](https://www.gatsbyjs.org/tutorial/).** It starts with zero assumptions about your level of ability and walks through every step of the process.
+API_URL=https://dev.example.com/api
+```
+```
+# Example .env.production file
 
--   **To dive straight into code samples, head [to our documentation](https://www.gatsbyjs.org/docs/).** In particular, check out the _Guides_, _API Reference_, and _Advanced Tutorials_ sections in the sidebar.
+API_URL=https://example.com/api
+```
+これらの変数は、process.env.API_URLとしてサイトで使用できる。
+```
+// usage
+render() {
+  return (
+    <div>
+      <img src={`${process.env.API_URL}/logo.png`} alt="Logo" />
+    </div>
+  )
+}
+```
 
-## 💫 Deploy
+### Reserved Environment Variables:
+特定の環境変数をオーバーライドすることはできません。ビルド中に内部的に最適化が行われるため。
+- `NODE_ENV`
+- `PUBLIC_DIR`
 
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/gatsbyjs/gatsby-starter-default)
+### Additional Environments (Staging, Test, etc)
+上記のように、`NODE_ENV` は Reat や他のモジュールをコンパイルする際にキー最適化を行うためにビルドシステムが必要とするため、Gatsbyの予約済みの環境変数。このため、追加の環境サポートのためにセカンダリ環境変数を使用し、クライアント側のコードで環境変数を手動で使用できるようにする必要がある。
+
+独自のOS Env Varを定義してアクティブな環境を追跡し、関連するProject Env Varsをロードするように設定することができる。
+
+Gatsby自体はそのOS Env Varで何もしないが、gatsby-config.jsで使うことができる。
+具体的には、dotenvと個々のOS Env Varを使用して.env.myCustomEnvironmentファイルを見つけ、module.exportsを使用してProject Env Varsを、クライアント側のJavascriptが（GraphQLクエリを介して）値にアクセスできる場所に保存することができる。
+
+例えば。カスタムGoogleアナリティクストラッキングIDと専用のapiUrlを使用してステージング環境を追加する場合は、プロジェクトのルートに.env.stagingを追加するには、gatsby-config.jsに以下の変更を加える。
+
+#### Example
+```
+# .env.staging
+GA_TRACKING_ID="UA-1234567890"
+API_URL="http://foo.bar"
+```
+```
+# gatsby-config.js
+let activeEnv = process.env.ACTIVE_ENV || process.env.NODE_ENV || "development"
+
+console.log(`Using environment config: '${activeEnv}'`)
+
+require("dotenv").config({
+  path: `.env.${activeEnv}`,
+})
+
+module.exports = {
+  siteMetadata: {
+    title: "Gatsby Default Starter",
+    apiUrl: process.env.API_URL,
+  },
+  plugins: [
+    {
+      resolve: `gatsby-plugin-google-analytics`,
+      options: {
+        trackingId: process.env.GA_TRACKING_ID,
+        // Puts tracking script in the head instead of the body
+        head: false,
+        // Setting this parameter is optional
+        anonymize: true,
+        // Setting this parameter is also optional
+        respectDNT: true,
+      },
+    },
+  ],
+}
+```
+これにより、関連する環境の `.env.*` ファイルから値がロードされ、GraphQLクエリとアナリティックプラグインを介して利用可能になる。
+`ACTIVE_ENV` は何かを呼び出すことができることに注意。
+これはGatsbyの何か他のものによって使われていないか知られていない（前述の `NODE_ENV` ではなく）。
+
+ステージング環境のローカルテストは、次の方法で行うことができる。
+```
+ACTIVE_ENV=staging gatsby develop
+```
+
+## [gatsby-source-graphql](https://www.gatsbyjs.org/packages/gatsby-source-graphql/)
+## [WPGraphQL](https://github.com/wp-graphql/wp-graphql)
