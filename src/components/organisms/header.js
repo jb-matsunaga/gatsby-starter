@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { Link } from 'gatsby'
 
-import Const from '../const'
+import Const from 'src/const'
 
 const { COLOR } = Const 
 

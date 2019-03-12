@@ -2,9 +2,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Helmet from 'react-helmet'
 import { StaticQuery, graphql } from 'gatsby'
+import Header from 'src/components/organisms/header'
 
-import Header from './header'
-import './layout.css'
+import GlobalStyles from 'src/global-styles'
 
 const Layout = ({ children }) => (
   <StaticQuery
@@ -39,6 +39,7 @@ const Layout = ({ children }) => (
         >
           {children}
         </div>
+        <GlobalStyles />
       </>
     )}
   />

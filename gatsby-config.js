@@ -8,7 +8,7 @@ module.exports = {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `images`,
-        path: `${__dirname}/src/images`,
+        path: `${__dirname}/assets/images`,
       },
     },
     'gatsby-transformer-sharp',
@@ -22,9 +22,10 @@ module.exports = {
         background_color: '#121212',
         theme_color: '#121212',
         display: 'minimal-ui',
-        icon: 'src/images/sticker.png', 
+        icon: 'assets/images/sticker.png', 
       },
     },
     `gatsby-plugin-styled-components`,
+    'gatsby-plugin-root-import',
   ],
 }
