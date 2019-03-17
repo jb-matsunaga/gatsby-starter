@@ -19,7 +19,7 @@ const MainImage = () => (
       query {
         placeholderImage: file(relativePath: { eq: "sticker.png" }) {
           childImageSharp {
-            fluid(maxWidth: 300) {
+            fluid(maxWidth: 420) {
               ...GatsbyImageSharpFluid
             }
           }

@@ -18,7 +18,7 @@ const IndexPage = () => (
 )
 
 const ImgWrapper = styled.div`
-  margin: 72px auto;
+  margin: 0 auto 32px;
   max-width: 320px;
 `
 
