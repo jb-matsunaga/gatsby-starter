@@ -8,5 +8,8 @@ export default {
     MEDIUM: 768,
     LARGE: 992,
     X_LARGE: 1200
+  },
+  HEADER: {
+    HEIGHT: 32
   }
 }

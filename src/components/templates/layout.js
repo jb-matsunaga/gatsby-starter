@@ -31,7 +31,7 @@ const Layout = ({ children }) => (
         >
           <html lang="ja" />
         </Helmet>
-        <Header siteTitle={data.site.siteMetadata.title} />
+        <Header siteTitle={data.site.siteMetadata.title} />　
         <MainWrapper>
           {children}
         </MainWrapper>
@@ -45,7 +45,13 @@ const MainWrapper = styled.main`
   max-width: ${SIZE.MEDIA.LARGE}px;
   min-width: ${SIZE.MEDIA.X_SMALL}px;
   margin: 0 auto;
+  height: calc(100vh - ${SIZE.HEADER.HEIGHT}px);
   padding: 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  
 `
 
 Layout.propTypes = {

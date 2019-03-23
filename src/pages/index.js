@@ -18,8 +18,8 @@ const IndexPage = () => (
 )
 
 const ImgWrapper = styled.div`
-  margin: 0 auto 32px;
-  max-width: 320px;
+  width: 320px;
+  height: auto;
 `
 
 const IconListWrapper = styled.div`
