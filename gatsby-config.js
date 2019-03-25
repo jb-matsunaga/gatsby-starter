@@ -11,6 +11,14 @@ module.exports = {
         path: `${__dirname}/assets/images`,
       },
     },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        path: `${__dirname}/assets/markdown`,
+        name: 'markdown-pages',
+      },
+    },
+    `gatsby-transformer-remark`,
     'gatsby-transformer-sharp',
     'gatsby-plugin-sharp',
     {
