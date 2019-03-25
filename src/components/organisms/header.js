@@ -4,7 +4,7 @@ import { Link } from 'gatsby'
 
 import Const from 'src/const'
 
-const { COLOR } = Const 
+const { COLOR, SIZE } = Const 
 
 const Header = ({ siteTitle }) => (
   <Wrapper>
@@ -22,6 +22,7 @@ const Wrapper = styled.div`
 const Inner = styled.div`
   max-width: 1024px;
   margin: 0 auto;
+  padding: 4px 8px;
 
   > a {
     color: #fff;
