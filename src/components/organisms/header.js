@@ -4,7 +4,7 @@ import { Link } from 'gatsby'
 
 import Const from 'src/const'
 
-const { COLOR, SIZE } = Const 
+const { COLOR } = Const 
 
 const Header = ({ siteTitle }) => (
   <Wrapper>

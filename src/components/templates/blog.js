@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { StaticQuery, graphql } from 'gatsby'
+import { graphql } from 'gatsby'
 import Helmet from 'react-helmet'
 import Header from 'src/components/organisms/header'
 import GlobalStyles from 'src/global-styles'
