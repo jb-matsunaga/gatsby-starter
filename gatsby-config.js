@@ -1,6 +1,8 @@
 module.exports = {
   siteMetadata: {
-    title: 'M-TECHDESIGN',
+    title: 'M-TECH DESIGN (MTNG)',
+    siteUrl: 'https://mtng.tokyo/',
+    description: 'M-TECH DESIGN (MTNG) is Frontend Engineer & Track Maker. I like React!!!',
   },
   plugins: [
     'gatsby-plugin-react-helmet',
