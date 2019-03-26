@@ -1,8 +1,10 @@
 import React from 'react'
+import styled from 'styled-components'
 import { graphql } from 'gatsby'
 import Helmet from 'react-helmet'
 
 import Layout from 'src/components/templates/layout'
+import ArticleCard from 'src/components/molecules/article-card'
 import Const from 'src/const'
 
 const { META, PAGE } = Const
@@ -24,12 +26,18 @@ export default function BlogListPage({
       <Layout>
         <ul>
           {data.allMarkdownRemark.edges.map((blog, i) => {
-            const { date, path, title } = blog.node.frontmatter
+            const { title, date, author, excerpt, path, tags } = blog.node.frontmatter
             return (
-              <li key={i}>
-                <a href={path}>{title}</a>
-                date: {date}
-              </li>
+              <CardList key={i}>
+                <ArticleCard
+                  title={title}
+                  date={date}
+                  author={author}
+                  excerpt={excerpt}
+                  path={path}
+                  tags={tags}
+                />
+              </CardList>
             )
           })}
         </ul>
@@ -38,18 +46,25 @@ export default function BlogListPage({
   )
 }
 
+const CardList = styled.li`
+  margin-bottom: 16px;
+`
+
 export const pageQuery = graphql`
   query{
     allMarkdownRemark {
       edges {
         node {
           frontmatter {
-            path
             title
             date
+            author
+            excerpt
+            path
+            tags
           }
         }
       }
-     }
+    }
   }
 `

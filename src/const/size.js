@@ -2,6 +2,9 @@ export default {
   FONT: {
     BASE: 14
   },
+  RADIUS: {
+    BASE: 4
+  },
   MEDIA: {
     X_SMALL: 320,
     SMALL: 576,

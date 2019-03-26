@@ -8,7 +8,7 @@ import IconList from 'src/components/molecules/icon-list'
 import Image from 'src/components/atoms/image'
 import Const from 'src/const'
 
-const { META, SIZE } = Const
+const { META } = Const
 const { MainImage } = Image 
 
 const IndexPage = ({ children }) => (
