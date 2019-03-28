@@ -37,14 +37,16 @@ const CardList = styled.li`
 `
 
 export const pageQuery = graphql`
-  query {
+  query PageQuery {
     allTweet {
       edges {
         node {
           created_at
           full_text
           user {
-              name
+            name
+            screen_name
+            profile_image_url
           }
         }
       }

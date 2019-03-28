@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 module.exports = {
   siteMetadata: {
     title: 'M-TECH DESIGN (MTNG)',
@@ -45,12 +47,12 @@ module.exports = {
     },
     {
       resolve: 'gatsby-source-twitter',
-      options: {           
-        q: '@mtng45',    
+      options: {      
+        q: 'mtng45',
         credentials: {
-          consumer_key: 'cBueF0qD90PVJJ3UYrxB7ZJKi',
-          consumer_secret: 'n7VIm08mrw0icOY48IsN3q7Brjhb0i6e0lNpOmXTMbpnmWI2Dw',
-          bearer_token: '897054354384891904-O0Ul4Kn4mZCxEALmVkevGShkaybyGIZ',
+          consumer_key: process.env.TWITTER_CONSUMER_KEY,
+          consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
+          bearer_token: process.env.TWITTER_BEARER_TOKEN,
         },
         tweet_mode: 'extended'
       },
