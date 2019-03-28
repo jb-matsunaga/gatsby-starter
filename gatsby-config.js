@@ -4,7 +4,9 @@ const {
   TWITTER_CONSUMER_SECRET,
   TWITTER_BEARER_TOKEN,
 } = process.env
- 
+console.warn('--TWITTER_CONSUMER_KEY--', TWITTER_CONSUMER_KEY)
+console.warn('--TWITTER_CONSUMER_SECRET--', TWITTER_CONSUMER_SECRET)
+console.warn('--TWITTER_BEARER_TOKEN--', TWITTER_BEARER_TOKEN)
 module.exports = {
   siteMetadata: {
     title: 'M-TECH DESIGN (MTNG)',
