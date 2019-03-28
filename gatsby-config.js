@@ -1,9 +1,10 @@
-if (process.env.NODE_ENV === 'development') {
-  require('dotenv').config()
-}
-console.warn('----------process.env----------')
-console.warn(process.env)
-console.warn('-------------------------------')
+require('dotenv').config()
+const {
+  TWITTER_CONSUMER_KEY,
+  TWITTER_CONSUMER_SECRET,
+  TWITTER_BEARER_TOKEN,
+} = process.env
+ 
 module.exports = {
   siteMetadata: {
     title: 'M-TECH DESIGN (MTNG)',
@@ -54,9 +55,9 @@ module.exports = {
       options: {      
         q: 'mtng45',
         credentials: {
-          consumer_key: process.env.TWITTER_CONSUMER_KEY,
-          consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
-          bearer_token: process.env.TWITTER_BEARER_TOKEN,
+          consumer_key: TWITTER_CONSUMER_KEY,
+          consumer_secret: TWITTER_CONSUMER_SECRET,
+          bearer_token: TWITTER_BEARER_TOKEN,
         },
         tweet_mode: 'extended'
       },
