@@ -1,8 +1,5 @@
 require('dotenv').config()
 console.warn('---process.env---', process.env)
-console.warn('--TWITTER_CONSUMER_KEY--', TWITTER_CONSUMER_KEY)
-console.warn('--TWITTER_CONSUMER_SECRET--', TWITTER_CONSUMER_SECRET)
-console.warn('--TWITTER_BEARER_TOKEN--', TWITTER_BEARER_TOKEN)
 module.exports = {
   siteMetadata: {
     title: 'M-TECH DESIGN (MTNG)',
@@ -54,8 +51,8 @@ module.exports = {
         q: 'mtng45',
         credentials: {
           consumer_key: `${process.env.TWITTER_CONSUMER_KEY}` || TWITTER_CONSUMER_KEY,
-          consumer_secret: `${process.env.TWITTER_CONSUMER_SECRET}` || TWITTER_CONSUMER_SECRET},
-          bearer_token: `${process.env.TWITTER_BEARER_TOKEN}` || TWITTER_BEARER_TOKEN},
+          consumer_secret: `${process.env.TWITTER_CONSUMER_SECRET}` || TWITTER_CONSUMER_SECRET,
+          bearer_token: `${process.env.TWITTER_BEARER_TOKEN}` || TWITTER_BEARER_TOKEN,
         },
         tweet_mode: 'extended'
       },
