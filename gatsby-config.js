@@ -4,9 +4,7 @@ const {
   TWITTER_CONSUMER_SECRET,
   TWITTER_BEARER_TOKEN,
 } = process.env
-console.warn('--TWITTER_CONSUMER_KEY--', TWITTER_CONSUMER_KEY)
-console.warn('--TWITTER_CONSUMER_SECRET--', TWITTER_CONSUMER_SECRET)
-console.warn('--TWITTER_BEARER_TOKEN--', TWITTER_BEARER_TOKEN)
+
 module.exports = {
   siteMetadata: {
     title: 'M-TECH DESIGN (MTNG)',
@@ -55,13 +53,15 @@ module.exports = {
     {
       resolve: 'gatsby-source-twitter',
       options: {      
-        q: 'mtng45',
+        q: 'DJ_DIKE',
+        count: '50',
         credentials: {
           consumer_key: TWITTER_CONSUMER_KEY,
           consumer_secret: TWITTER_CONSUMER_SECRET,
           bearer_token: TWITTER_BEARER_TOKEN,
         },
-        tweet_mode: 'extended'
+        tweet_mode: 'extended',
+        result_type: 'mixed'
       },
     },
   ],
