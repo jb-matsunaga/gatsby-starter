@@ -1,5 +1,9 @@
-require('dotenv').config()
-
+if (process.env.NODE_ENV === 'development') {
+  require('dotenv').config()
+}
+console.warn('----------process.env----------')
+console.warn(process.env)
+console.warn('-------------------------------')
 module.exports = {
   siteMetadata: {
     title: 'M-TECH DESIGN (MTNG)',
