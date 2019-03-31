@@ -7,21 +7,28 @@ import GlobalStyles from 'src/global-styles'
 
 const { SIZE } = Const
 
-const Layout = ({ children }) => (
-  <>
-    <Header siteTitle={'M-TECHDESIGN'} />　
+const Layout = (props) => {
+  return (
+  <Wrapper bgColor={props.bgColor} color={props.color}>
+    <Header siteTitle={'M-TECHDESIGN'}/> 
     <MainWrapper>
-      {children}
+      {props.children}
     </MainWrapper>
     <GlobalStyles />
-  </>
+  </Wrapper>
 )
+  }
+
+const Wrapper = styled.div`
+  background-color: ${props => props.bgColor && props.bgColor};
+  color: ${props => props.color && props.color};
+`
 
 const MainWrapper = styled.main`
   max-width: ${SIZE.MEDIA.LARGE}px;
   min-width: ${SIZE.MEDIA.X_SMALL}px;
   margin: 0 auto;
-  padding: 32px;
+  padding: 16px 32px;
   box-sizing: borderbox;
 `
 

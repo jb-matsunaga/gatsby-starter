@@ -2,11 +2,18 @@ import React from 'react'
 import styled from 'styled-components'
 import { graphql } from 'gatsby'
 import Helmet from 'react-helmet'
+import dateFns from 'date-fns'
 
+import Heading from 'src/components/atoms/heading'
+import Icon from 'src/components/atoms/icon/'
+import Image from 'src/components/atoms/image/'
 import Layout from 'src/components/templates/layout'
 import Const from 'src/const'
 
-const { META, PAGE } = Const
+const { COLOR, META, PAGE } = Const
+const { AvatarImage } = Image
+const { HeartIcon, RetweetIcon } = Icon
+const { H1 } = Heading
 
 export default function TweetPage({
   data, 
@@ -22,7 +29,9 @@ export default function TweetPage({
       >
         <html lang='ja' />
       </Helmet>
-      <Layout>
+      <Layout bgColor={COLOR.VERY_DARK_GRAY} color={COLOR.DARK_GRAYISH_BLUE}>
+        <H1>Twitter Search API</H1>
+        <p>react hooks OR gatsbyjs OR jamstack min_retweets:10 OR min_faves:10</p>
         <CardList>
           {data.allTweet.edges.map((edge, i) => {
             const { 
@@ -32,34 +41,43 @@ export default function TweetPage({
               retweet_count,
               favorite_count,
               entities: { media },
-              user: { name, screen_name, profile_image_url　}
+              user: { name, screen_name, profile_image_url }
             } = edge.node
 
             return (
               <li key={i}>
-                <div>
-                  <div>
+                <TweetCard>
+                  <TweetCardHeader>
                     <a href={`https://twitter.com/${screen_name}`} target="_blank" rel="noopener noreferrer">
-                      <img src={profile_image_url} alt={screen_name} />
+                      <TweetCardAvatar src={profile_image_url} alt={screen_name} />
                       <span>{name}</span>
-                      <span>{screen_name}</span>
-                      <small>{created_at}</small>
+                      <TweetCardScreenName>@{screen_name}</TweetCardScreenName>
                     </a>
-                  </div>
+                    <TweetCardTime>{dateFns.format(created_at, 'MM/DD/YYYY HH:mm')}</TweetCardTime>
+                  </TweetCardHeader>
                   <a href={`https://twitter.com/${screen_name}/status/${id_str}`} target="_blank" rel="noopener noreferrer">
                     <div>{full_text}</div>
-                    <div><ul><li>retweet:{retweet_count}</li><li>favorite:{favorite_count}</li></ul></div>
                     {media && 
-                    <div>
+                    <TweetCardMediaCountainer>
                       <ul>
                         {media.map((media) => (
                           <li key={media.id}><img src={media.media_url} alt={media.id} /></li>
                         ))}
                       </ul>
-                    </div>
+                    </TweetCardMediaCountainer>
                     }
                   </a>
-                </div>
+                  <TweetCardIconList>
+                    <li>
+                      <RetweetIcon width={18} height={18} fill={COLOR.DARK_GRAYISH_BLUE} />
+                      <span>{retweet_count}</span>
+                    </li>
+                    <li>
+                      <HeartIcon width={18} height={18} fill={COLOR.DARK_GRAYISH_BLUE} />
+                      <span>{favorite_count}</span>
+                    </li>
+                  </TweetCardIconList>
+                </TweetCard>
               </li>
             )
           })
@@ -70,10 +88,73 @@ export default function TweetPage({
   )
 }
 
-const CardList = styled.ul`
+const TweetCardIconList = styled.ul`
+  margin-top: 12px;
+  display: block;
+
   > li {
-    padding: 8px;
-    margin-bottom: 16px;
+    display: inline-block;
+    min-width: 80px;
+
+    > span {
+      color: ${COLOR.DARK_GRAYISH_BLUE};
+      margin-left: 6px;
+    }
+  }
+`
+
+const TweetCard = styled.div`
+  margin-left: 58px;
+`
+const TweetCardHeader = styled.div`
+  display: flex;
+
+  > a {
+    display: inline-flex;
+    flex-shrink: 1;
+    overflow: hidden;
+    margin-right: 5px;
+  }
+`
+
+const TweetCardAvatar = styled(AvatarImage)`
+  float: left;
+  margin-top: 3px;
+  margin-left: -58px;
+  position: absolute;
+`
+const TweetCardScreenName = styled.span`
+  color: ${COLOR.DARK_GRAYISH_BLUE};
+  margin-left: 4px;
+`
+
+const TweetCardTime = styled.span`
+  color: ${COLOR.DARK_GRAYISH_BLUE};
+  white-space: nowrap;
+`
+
+const TweetCardMediaCountainer = styled.div`
+  margin-top: 12px;
+
+  img {
+    max-width: 100%;
+
+  }
+`
+
+const CardList = styled.ul`
+  border: 1px solid ${COLOR.DARK_GRAYISH_BLUE};
+  > li {
+    padding: 16px;
+    border-bottom: 1px solid ${COLOR.DARK_GRAYISH_BLUE};
+
+    &:last-child {
+      border: none;
+    }
+
+    &:hover {
+      background-color: ${COLOR.VERY_DARK_GRAY2};
+    }
   }
 `
 

@@ -53,7 +53,7 @@ module.exports = {
     {
       resolve: 'gatsby-source-twitter',
       options: {      
-        q: 'react hooks OR gatsbyjs OR jamstack　min_retweets:10 OR min_faves:10',
+        q: 'react hooks OR gatsbyjs OR jamstack min_retweets:10 OR min_faves:10',
         count: '100',
         credentials: {
           consumer_key: TWITTER_CONSUMER_KEY,

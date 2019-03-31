@@ -1,6 +1,8 @@
 export default {
   FONT: {
-    BASE: 14
+    BASE: 14,
+    MEDIUM: 16,
+    LARGE: 18,
   },
   RADIUS: {
     BASE: 4

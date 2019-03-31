@@ -17,6 +17,8 @@ const Header = ({ siteTitle }) => (
 const Wrapper = styled.div`
   background: ${COLOR.VERY_DARK_GRAY};
   font-size: 13px;
+  box-sizing: border-box;
+  border-bottom: 1px solid ${COLOR.VERY_DARK_GRAY2};
 `
 
 const Inner = styled.div`
