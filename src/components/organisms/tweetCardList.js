@@ -28,7 +28,7 @@ const TweetCardList = (props) => (
           <TweetCard>
             <TweetCardHeader>
               <a href={`https://twitter.com/${screen_name}`} target="_blank" rel="noopener noreferrer">
-                <TweetCardAvatar src={profile_image_url} alt={screen_name} />
+                <TweetCardAvatar src={profile_image_url.replace(/http:/gi, 'https:')} alt={screen_name} />
                 <span>{name}</span>
                 <TweetCardScreenName>@{screen_name}</TweetCardScreenName>
               </a>
