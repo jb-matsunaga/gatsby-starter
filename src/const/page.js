@@ -7,7 +7,8 @@ export default {
     DESCRIPTION: 'ブログ一覧ページです。'
   },
   TWEET: {
-    NAME: 'M-TECH DESIGN (MTNG) Tweet page',
-    DESCRIPTION: 'M-TECH DESIGN (MTNG) Tweet page です。'
+    NAME: 'Tweet一覧: Twitter Search API - M-TECH DESIGN (MTNG)',
+    DESCRIPTION: 'Twitter Search API を使って react hooks, jamstack, gatsbyjs を検索',
+    KEYWORDS: 'frontend, engineer, track maker, react hooks, jamstack, gatsbyjs',
   },
 }
