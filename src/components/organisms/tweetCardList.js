@@ -40,7 +40,7 @@ const TweetCardList = (props) => (
               <TweetCardMediaCountainer>
                 <ul>
                   {media.map((media) => (
-                    <li key={media.id}><img src={media.media_url} alt={media.id} /></li>
+                    <li key={media.id}><img src={media.media_url.replace(/http:/gi, 'https:')} alt={media.id} /></li>
                   ))}
                 </ul>
               </TweetCardMediaCountainer>
