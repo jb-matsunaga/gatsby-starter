@@ -10,9 +10,6 @@ const Header = ({ siteTitle }) => (
   <Wrapper>
     <Inner>
       <LogoLink to='/'>{siteTitle}</LogoLink> 
-      <Nav>
-        <NavLink to='/tweet'>Tweet</NavLink>
-      </Nav>
     </Inner>
   </Wrapper>
 )
