@@ -26,8 +26,17 @@ export default function BlogDetailTemplate({
       </Helmet>
       <Layout>
         <h1>{frontmatter.title}</h1>
-        <h2>{frontmatter.date}</h2>
-        <div dangerouslySetInnerHTML={{ __html: html }} />
+        <span>{frontmatter.date}</span>
+        {frontmatter.tags &&
+          <ul>
+            {frontmatter.tags.map((tag) => (
+              <li>{tag}</li>
+            ))}
+          </ul>
+        }
+        <div className="l-markdown">
+          <div dangerouslySetInnerHTML={{ __html: html }} />
+        </div>
       </Layout>
     </>
   )

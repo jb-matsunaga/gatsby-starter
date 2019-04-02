@@ -24,11 +24,11 @@ export default function BlogListPage({
         <html lang='ja' />
       </Helmet>
       <Layout>
-        <ul>
+        <CardList>
           {data.allMarkdownRemark.edges.map((blog, i) => {
             const { title, date, author, excerpt, path, tags } = blog.node.frontmatter
             return (
-              <CardList key={i}>
+              <li key={i}>
                 <ArticleCard
                   title={title}
                   date={date}
@@ -37,17 +37,20 @@ export default function BlogListPage({
                   path={path}
                   tags={tags}
                 />
-              </CardList>
+              </li>
             )
           })}
-        </ul>
+        </CardList>
       </Layout>
     </>
   )
 }
 
-const CardList = styled.li`
-  margin-bottom: 16px;
+const CardList = styled.ul`
+
+  > li {
+    margin-bottom: 16px;
+  }
 `
 
 export const pageQuery = graphql`
