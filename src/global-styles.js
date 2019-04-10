@@ -28,6 +28,13 @@ const GlobalStyles = createGlobalStyle`
       text-decoration: none;
     }
   }
+
+  .l-markdown {
+    ul {
+      list-style-type: disc;
+      padding-inline-start: 32px;
+    }
+  }
 `
 
 export default GlobalStyles
