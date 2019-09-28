@@ -27,7 +27,19 @@ module.exports = {
         path: `${__dirname}/assets/docs`,
       },
     },
-    'gatsby-transformer-remark',
+    {
+      resolve: `gatsby-transformer-remark`,
+      options: {
+        plugins: [
+          {
+            resolve: 'gatsby-remark-code-titles',
+          },
+          {
+            resolve: `gatsby-remark-prismjs`,
+          },
+        ],
+      },
+    },
     'gatsby-transformer-sharp',
     'gatsby-plugin-sharp',
     {
@@ -64,5 +76,6 @@ module.exports = {
         result_type: 'mixed'
       },
     },
+    'gatsby-remark-prismjs',
   ],
 }
